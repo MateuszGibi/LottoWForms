@@ -34,7 +34,10 @@ namespace LottoWForms
         public void LoginIn(string login, string password)
         {
             var user = this._db.Users.First(u => u.Login == login);
-            this.IsPasswordValid(password, user.Password);
+            if(!this.IsPasswordValid(password, user.Password))
+            {
+                throw new Exception("Invalid login");
+            }
 
             this._authUserId = user.Id;
             this._authUserLogin = user.Login;

@@ -30,20 +30,20 @@
         {
             this.loginGroupBox = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.rePassInput = new System.Windows.Forms.TextBox();
             this.registerBtn = new System.Windows.Forms.Button();
             this.passLabel = new System.Windows.Forms.Label();
             this.loginLabel = new System.Windows.Forms.Label();
             this.passInput = new System.Windows.Forms.TextBox();
             this.loginInput = new System.Windows.Forms.TextBox();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.goBackLinkLabel = new System.Windows.Forms.LinkLabel();
             this.loginGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // loginGroupBox
             // 
             this.loginGroupBox.Controls.Add(this.label1);
-            this.loginGroupBox.Controls.Add(this.textBox1);
+            this.loginGroupBox.Controls.Add(this.rePassInput);
             this.loginGroupBox.Controls.Add(this.registerBtn);
             this.loginGroupBox.Controls.Add(this.passLabel);
             this.loginGroupBox.Controls.Add(this.loginLabel);
@@ -65,13 +65,13 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Repeat password";
             // 
-            // textBox1
+            // rePassInput
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 129);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(198, 23);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.UseSystemPasswordChar = true;
+            this.rePassInput.Location = new System.Drawing.Point(6, 129);
+            this.rePassInput.Name = "rePassInput";
+            this.rePassInput.Size = new System.Drawing.Size(198, 23);
+            this.rePassInput.TabIndex = 6;
+            this.rePassInput.UseSystemPasswordChar = true;
             // 
             // registerBtn
             // 
@@ -81,6 +81,7 @@
             this.registerBtn.TabIndex = 5;
             this.registerBtn.Text = "Register";
             this.registerBtn.UseVisualStyleBackColor = true;
+            this.registerBtn.Click += new System.EventHandler(this.registerBtn_Click);
             // 
             // passLabel
             // 
@@ -115,22 +116,23 @@
             this.loginInput.Size = new System.Drawing.Size(198, 23);
             this.loginInput.TabIndex = 0;
             // 
-            // linkLabel1
+            // goBackLinkLabel
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(172, 211);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(50, 15);
-            this.linkLabel1.TabIndex = 3;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Go back";
+            this.goBackLinkLabel.AutoSize = true;
+            this.goBackLinkLabel.Location = new System.Drawing.Point(172, 211);
+            this.goBackLinkLabel.Name = "goBackLinkLabel";
+            this.goBackLinkLabel.Size = new System.Drawing.Size(50, 15);
+            this.goBackLinkLabel.TabIndex = 3;
+            this.goBackLinkLabel.TabStop = true;
+            this.goBackLinkLabel.Text = "Go back";
+            this.goBackLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.goBackLinkLabel_LinkClicked);
             // 
             // RegisterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(234, 241);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.goBackLinkLabel);
             this.Controls.Add(this.loginGroupBox);
             this.Name = "RegisterForm";
             this.Text = "Lotto - Register";
@@ -149,8 +151,8 @@
         private System.Windows.Forms.TextBox passInput;
         private System.Windows.Forms.TextBox loginInput;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox rePassInput;
         private System.Windows.Forms.Button registerBtn;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel goBackLinkLabel;
     }
 }

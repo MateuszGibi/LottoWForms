@@ -12,6 +12,8 @@ namespace LottoWForms
 {
     public partial class LoginForm : Form
     {
+        public Authenticator auth = new Authenticator();
+
         public LoginForm()
         {
             InitializeComponent();
@@ -20,6 +22,28 @@ namespace LottoWForms
         private void loginBtn_Click(object sender, EventArgs e)
         {
 
+            string login = this.loginInput.Text;
+            string password = this.passInput.Text;
+
+            try
+            {
+                this.auth.LoginIn(login, password);
+            }
+            catch(Exception _)
+            {
+                MessageBox.Show("Invalid login!");
+                return;
+            }
+
+            MessageBox.Show("Login valid ^^");
+
+        }
+
+        private void registerBtn_Click(object sender, EventArgs e)
+        {
+            RegisterForm registerForm = new RegisterForm(this);
+            this.Hide();
+            registerForm.Show();
         }
     }
 }
