@@ -15,6 +15,7 @@ namespace LottoWForms
         private List<int> _randomNumbers = new List<int>();
 
         public int Prize { get => _prize; }
+        public List<int> WinningNumbers { get => this._randomNumbers; }
         
         public Game()
         {
@@ -39,12 +40,12 @@ namespace LottoWForms
             this._randomNumbers = winningNumbers;
         }
 
-        public Dictionary<int, bool> CheckPlayersNumbers(List<int> playerNumbers){
-            Dictionary<int, bool> result = new Dictionary<int, bool>();
+        public List<bool> CheckPlayersNumbers(List<int> playerNumbers){
+            List<bool> result = new List<bool>();
         
             foreach(int playerNumber in playerNumbers)
             {
-                result.Add(playerNumber, this._randomNumbers.Contains(playerNumber));
+                result.Add(this._randomNumbers.Contains(playerNumber));
             }
 
             return result;

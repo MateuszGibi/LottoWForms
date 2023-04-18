@@ -45,7 +45,8 @@ namespace LottoWForms.Migrations
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
                     GuessedNumbers = table.Column<string>(type: "TEXT", nullable: true),
-                    GuessedResult = table.Column<string>(type: "TEXT", nullable: true)
+                    GuessedResult = table.Column<string>(type: "TEXT", nullable: true),
+                    IsResultChecked = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

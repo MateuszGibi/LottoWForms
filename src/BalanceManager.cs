@@ -14,6 +14,13 @@ namespace LottoWForms
             this._db = new DBManager();
         }
 
+        public int GetBalance(int userId)
+        {
+            this._db = new DBManager();
+            int balance =  this._db.Balances.First(x => x.UserId == userId).UserBalance;
+            return balance;
+        }
+
         public void CreateNewBalance(int userId)
         {
             this._db.Balances.Add(new Balance() { UserId = userId, UserBalance = this._startingBalance });

@@ -71,6 +71,9 @@ namespace LottoWForms.Migrations
                     b.Property<string>("GuessedResult")
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsResultChecked")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 

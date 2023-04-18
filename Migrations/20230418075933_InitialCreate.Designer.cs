@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LottoWForms.Migrations
 {
     [DbContext(typeof(DBManager))]
-    [Migration("20230412103616_InitialCreate")]
+    [Migration("20230418075933_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,6 +72,9 @@ namespace LottoWForms.Migrations
 
                     b.Property<string>("GuessedResult")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsResultChecked")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");

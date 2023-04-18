@@ -32,12 +32,14 @@
             this.ticketsGroupBox = new System.Windows.Forms.GroupBox();
             this.ticketList = new System.Windows.Forms.ListView();
             this.Numbers = new System.Windows.Forms.ColumnHeader();
+            this.guessed = new System.Windows.Forms.ColumnHeader();
             this.balanceLabel = new System.Windows.Forms.Label();
             this.helloLabel = new System.Windows.Forms.Label();
             this.numbersLabel = new System.Windows.Forms.Label();
             this.checkBtn = new System.Windows.Forms.Button();
             this.buyTicketBtn = new System.Windows.Forms.Button();
             this.prizeLabel = new System.Windows.Forms.Label();
+            this.ticketAvailableLabel = new System.Windows.Forms.Label();
             this.ticketsGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +56,8 @@
             // ticketList
             // 
             this.ticketList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Numbers});
+            this.Numbers,
+            this.guessed});
             this.ticketList.HideSelection = false;
             this.ticketList.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
@@ -69,6 +72,10 @@
             // 
             this.Numbers.Text = "Numbers";
             this.Numbers.Width = 150;
+            // 
+            // guessed
+            // 
+            this.guessed.Text = "Guessed";
             // 
             // balanceLabel
             // 
@@ -107,6 +114,7 @@
             this.checkBtn.TabIndex = 13;
             this.checkBtn.Text = "Check your tickets";
             this.checkBtn.UseVisualStyleBackColor = true;
+            this.checkBtn.Click += new System.EventHandler(this.checkBtn_Click);
             // 
             // buyTicketBtn
             // 
@@ -116,6 +124,7 @@
             this.buyTicketBtn.TabIndex = 12;
             this.buyTicketBtn.Text = "Buy ticket";
             this.buyTicketBtn.UseVisualStyleBackColor = true;
+            this.buyTicketBtn.Click += new System.EventHandler(this.buyTicketBtn_Click);
             // 
             // prizeLabel
             // 
@@ -127,11 +136,21 @@
             this.prizeLabel.TabIndex = 11;
             this.prizeLabel.Text = "Today\'s prize: 10000zł";
             // 
+            // ticketAvailableLabel
+            // 
+            this.ticketAvailableLabel.AutoSize = true;
+            this.ticketAvailableLabel.Location = new System.Drawing.Point(239, 114);
+            this.ticketAvailableLabel.Name = "ticketAvailableLabel";
+            this.ticketAvailableLabel.Size = new System.Drawing.Size(98, 15);
+            this.ticketAvailableLabel.TabIndex = 15;
+            this.ticketAvailableLabel.Text = "Tickets available: ";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(372, 349);
+            this.Controls.Add(this.ticketAvailableLabel);
             this.Controls.Add(this.ticketsGroupBox);
             this.Controls.Add(this.balanceLabel);
             this.Controls.Add(this.helloLabel);
@@ -141,6 +160,8 @@
             this.Controls.Add(this.prizeLabel);
             this.Name = "GameForm";
             this.Text = "GameForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameForm_FormClosed);
+            this.Load += new System.EventHandler(this.GameForm_Load);
             this.ticketsGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -158,5 +179,7 @@
         private System.Windows.Forms.Button checkBtn;
         private System.Windows.Forms.Button buyTicketBtn;
         private System.Windows.Forms.Label prizeLabel;
+        private System.Windows.Forms.ColumnHeader guessed;
+        private System.Windows.Forms.Label ticketAvailableLabel;
     }
 }

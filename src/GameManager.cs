@@ -19,15 +19,47 @@ namespace LottoWForms
             
         }
 
+        public List<int> GetNumberOfGuessed(int userId)
+        {
+            this._db = new DBManager();
+            List<Ticket> tickets = this._db.Tickets.Where(t => t.UserId == userId && t.Date.Date == DateTime.Now.Date).OrderBy(t => t.Id).ToList();
+            if (tickets.Count == 0) return new List<int> {};
+            List<int> numberOfGuessed = new List<int>();
+            foreach (var ticket in tickets)
+            {
+                if(ticket.GuessedResult == null)
+                {
+                    numberOfGuessed.Add(0);
+                    continue;
+                        
+                }
+                List<string> guessed = ticket.GuessedResult.Split(";").ToList();
+                int noOfGuessed = 0;
+
+                foreach (var guess in guessed)
+                {
+                    if (bool.Parse(guess))
+                    {
+                        noOfGuessed++;
+                    }
+                }
+
+                numberOfGuessed.Add(noOfGuessed);
+            }
+
+            return numberOfGuessed;
+        }
+
         public void CheckPlayersNumbers(int userId)
         {
             List<Ticket> tickets = this._db.Tickets.Where(t => t.UserId == userId && t.Date.Date == DateTime.Today.Date).ToList();
             foreach (Ticket ticket in tickets)
             {
                 List<int> playerNumbers = ticket.GuessedNumbers.Split(";").Select(Int32.Parse).ToList();
-                Dictionary<int, bool> result = this._game.CheckPlayersNumbers(playerNumbers);
+                List<bool> result = this._game.CheckPlayersNumbers(playerNumbers);
 
                 ticket.GuessedResult = string.Join(";", result);
+                ticket.IsResultChecked = true;
                 _db.SaveChanges();
             }
         }
@@ -36,9 +68,9 @@ namespace LottoWForms
         {
             try
             {
-                DateTime lastDate = _db.Prizes.OrderBy(p => p.PrizeDate).First().PrizeDate;
-                if (!DateValidator.IsDateToday(lastDate)) return true;
-                return false;
+                DateTime lastDate = _db.Prizes.OrderBy(p => p.PrizeDate).Last().PrizeDate;
+                if (DateValidator.IsDateToday(lastDate)) return false;
+                return true;
             }
             catch (InvalidOperationException error)
             {
@@ -54,7 +86,7 @@ namespace LottoWForms
             }
             else
             {
-                Prize lastPrize = _db.Prizes.OrderBy(p => p.PrizeDate).First();
+                Prize lastPrize = _db.Prizes.OrderBy(p => p.PrizeDate).Last();
                 List<int> lastWinningNumber = lastPrize.WinningNumbers.Split(";").Select(Int32.Parse).ToList();
                 this._game = new Game(lastPrize.PrizeValue, lastWinningNumber);
             }

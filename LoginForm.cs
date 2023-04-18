@@ -35,7 +35,9 @@ namespace LottoWForms
                 return;
             }
 
-            MessageBox.Show("Login valid ^^");
+            GameForm gameForm = new GameForm(this, this.auth);
+            this.Hide();
+            gameForm.Show();
 
         }
 

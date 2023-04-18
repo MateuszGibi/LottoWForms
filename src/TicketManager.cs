@@ -15,7 +15,7 @@ namespace LottoWForms
         {
             this._db = new DBManager();
         }
-        
+
         public void BuyTicket(int userId, List<int> userNumbers)
         {
             if (this.HasLimitBeenReached(userId)) throw new Exception("Ticket limit has been reached!");
@@ -31,20 +31,62 @@ namespace LottoWForms
             _db.SaveChanges();
         }
 
-        private bool HasUserEnoughBalance(int userId)
+        public List<List<int>> GetTicketNumbers(int userId)
         {
+            List<List<int>> ticketNumbers = new List<List<int>>();
+            var res = this._db.Tickets.Where(ticket => ticket.UserId == userId && ticket.Date == DateTime.Now.Date).ToList();
+
+            foreach (var ticket in res)
+            {
+                ticketNumbers.Add(ticket.GuessedNumbers.Split(";").Select(Int32.Parse).ToList());
+            }
+
+            return ticketNumbers;
+        }
+
+        public int GetTicketAvailable(int userId)
+        {
+            this._db = new DBManager();
+
+            List<Ticket> tickets = _db.Tickets.Where(t => t.UserId == userId && t.Date.Date == DateTime.Today.Date).ToList();
+
+            if (!this.HasUserEnoughBalance(userId) || this.HasLimitBeenReached(userId) || this.HasCheckedNumbers(userId)) return 0;
+
+            return this._dayLimit - tickets.Count;
+        }
+
+        public bool HasUserEnoughBalance(int userId)
+        {
+            this._db = new DBManager();
+
             Balance userBalance = this._db.Balances.First(b => b.UserId == userId);
             if (userBalance.UserBalance >= this._ticketCost) return true;
             return false;
         }
 
-        private bool HasLimitBeenReached(int userId)
+        public bool HasLimitBeenReached(int userId)
         {
+            this._db = new DBManager();
+
             var tickets = _db.Tickets.Where(t => t.UserId == userId && t.Date.Date == DateTime.Today.Date).ToList();
             
             if (tickets.Count >= this._dayLimit) { return true; }
 
             return false;
+        }
+
+        public bool HasCheckedNumbers(int userId)
+        {
+            this._db = new DBManager();
+
+            try
+            {
+                return this._db.Tickets.Where(t => t.UserId == userId).OrderBy(t => t.Date).Last().IsResultChecked;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

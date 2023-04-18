@@ -12,5 +12,6 @@ namespace LottoWForms.Entities
         public DateTime Date { get; set; }
         public string GuessedNumbers { get; set; }
         public string GuessedResult { get; set; } 
+        public bool IsResultChecked { get; set; }
     }
 }
