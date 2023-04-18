@@ -5,5 +5,5 @@ riderModule.iml
 /_ReSharper.Caches/
 .vs/
 .idea/
-./Migrations
-./Properties
+Migrations/
+Properties/
